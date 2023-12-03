@@ -1,4 +1,5 @@
 import "../index.css";
+import NavBar from "./NavBar";
 
 /*
 const tempMovieData = [
@@ -47,12 +48,8 @@ const tempWatchedData = [
     userRating: 9,
   },
 ];
-
-export default function App() {
-  return <h1>Hello React...!</h1>;
-}
 */
 
 export default function App() {
-  return <h1>Hello React...!</h1>;
+  return <NavBar />;
 }
