@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function NavBar({ movies, query, setQuery }) {
   return (
     <nav className="nav-bar">
