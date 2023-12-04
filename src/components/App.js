@@ -85,13 +85,16 @@ export default function App() {
 
   useEffect(
     function () {
+      const controller = new AbortController();
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
 
           const response = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
           if (!response.ok)
             return new Error("Something went wrong with fetching movies");
@@ -102,7 +105,9 @@ export default function App() {
           // console.log(data);
           setMovies(data.Search);
         } catch (err) {
-          setError(err.message);
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -114,6 +119,11 @@ export default function App() {
         return;
       }
       fetchMovies();
+
+      // cleanup function
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );

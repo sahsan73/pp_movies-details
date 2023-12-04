@@ -69,6 +69,11 @@ export default function MovieDetails({
     function () {
       if (!title) return;
       document.title = `Movie | ${title}`;
+
+      // cleanup function
+      return function () {
+        document.title = "Movies Details";
+      };
     },
     [title]
   );
